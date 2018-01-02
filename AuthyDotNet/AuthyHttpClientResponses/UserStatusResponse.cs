@@ -4,7 +4,8 @@ namespace AuthyDotNet.AuthyHttpClientResponses
 {
     public class UserStatusResponse : AuthyResponse
     {
-        public StatusResponse Status { get; set; }
+        [JsonProperty("status")]
+        public StatusResponse UserStatus { get; set; }
 
         public class StatusResponse
         {
