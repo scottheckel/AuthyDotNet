@@ -4,16 +4,17 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using AuthyDotNet.AuthyHttpClientResponses;
 
 namespace AuthyDotNet
 {
     /// <summary>
     /// HTTP Client that can handle requirements of the Authy API
     /// </summary>
-    public class AuthyHttpClient : IAuthyHttpClient
+    internal class AuthyHttpClient : IAuthyHttpClient
     {
-        private string apiKey;
-        private string baseUrl;
+        private readonly string apiKey;
+        private readonly string baseUrl;
 
         /// <summary>
         /// Constructor
@@ -32,7 +33,7 @@ namespace AuthyDotNet
         /// <typeparam name="T">Type of Response</typeparam>
         /// <param name="uri">URI of Resource</param>
         /// <returns>Response</returns>
-        public async Task<T> GetAsync<T>(string uri)
+        public async Task<T> GetAsync<T>(string uri) where T : AuthyResponse
         {
             return await SendAsync<T>(baseUrl + uri, HttpMethod.Get);
         }
@@ -44,19 +45,19 @@ namespace AuthyDotNet
         /// <param name="uri">URI of Resource</param>
         /// <param name="model">Request Model to Post</param>
         /// <returns>Response</returns>
-        public async Task<T> PostAsync<T>(string uri, object model)
+        public async Task<T> PostAsync<T>(string uri, object model) where T : AuthyResponse
         {
             return await SendAsync<T>(baseUrl + uri, HttpMethod.Post);
         }
 
-        private async Task<T> SendAsync<T>(string url, HttpMethod method, object model = null)
+        private async Task<T> SendAsync<T>(string url, HttpMethod method, object model = null) where T : AuthyResponse
         {
             using (var httpClient = new HttpClient())
             {
                 var request = new HttpRequestMessage()
                 {
                     RequestUri = new Uri(url),
-                    Method = HttpMethod.Get
+                    Method = method
                 };
                 request.Headers.Add("X-Authy-API-Key", apiKey);
                 request.Headers.Add("User-Agent", GetUserAgent());
@@ -72,13 +73,13 @@ namespace AuthyDotNet
                 switch (httpResponse.StatusCode)
                 {
                     case HttpStatusCode.ServiceUnavailable:
-
+                        authyResponse.Status = AuthyStatus.ServiceUnavailable;
                         break;
                     case HttpStatusCode.Unauthorized:
-
+                        authyResponse.Status = AuthyStatus.Unauthorized;
                         break;
                     case HttpStatusCode.BadRequest:
-
+                        authyResponse.Status = AuthyStatus.BadRequest;
                         break;
                 }
                 return authyResponse;
@@ -87,7 +88,7 @@ namespace AuthyDotNet
 
         private string GetUserAgent()
         {
-            return $"AuthyDotNet/0.1.0";
+            return $"AuthyDotNet/0.2.0";
         }
     }
 }
