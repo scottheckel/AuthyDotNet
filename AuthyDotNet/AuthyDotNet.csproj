@@ -2,6 +2,22 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>AuthyDotNet</PackageId>
+    <PackageVersion>0.1.0</PackageVersion>
+    <Authors>Scott Heckel</Authors>
+    <Description>A modern .NET Standard 2.0 Authy API Library</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>First pre-release version</PackageReleaseNotes>
+    <Copyright>Copyright 2017 (c) Scott Heckel. All rights reserved.</Copyright>
+    <PackageTags>authy 2fa twilio two-factor</PackageTags>
+    <Company />
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/scottheckel/AuthyDotNet/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/scottheckel/AuthyDotNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/scottheckel/AuthyDotNet</RepositoryUrl>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <Version>0.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

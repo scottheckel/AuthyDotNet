@@ -87,7 +87,7 @@ namespace AuthyDotNet
 
         private string GetUserAgent()
         {
-            return $"AuthyDotNet/1.0.0";
+            return $"AuthyDotNet/0.1.0";
         }
     }
 }
