@@ -31,7 +31,7 @@ namespace AuthyDotNet
             });
         }
 
-        public async Task<VerifyTokenResponse> VerifyToken(string authyId, string token, bool force = true)
+        public async Task<VerifyTokenResponse> VerifyToken(string authyId, string token)
         {
             if (!Helpers.TokenIsValid(token))
             {
@@ -47,7 +47,7 @@ namespace AuthyDotNet
 
             authyId = Helpers.SanitizeNumber(authyId);
             token = Helpers.SanitizeNumber(token);
-            string uri = $"sms/{authyId}" + (force ? "?force=true" : "");
+            string uri = $"verify/{token}/{authyId}";
             return await client.GetAsync<VerifyTokenResponse>(uri);
         }
 
