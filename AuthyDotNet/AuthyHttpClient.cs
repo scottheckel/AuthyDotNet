@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using AuthyDotNet.AuthyHttpClientRequests;
 using AuthyDotNet.AuthyHttpClientResponses;
 
 namespace AuthyDotNet
@@ -45,12 +46,12 @@ namespace AuthyDotNet
         /// <param name="uri">URI of Resource</param>
         /// <param name="model">Request Model to Post</param>
         /// <returns>Response</returns>
-        public async Task<T> PostAsync<T>(string uri, object model) where T : AuthyResponse
+        public async Task<T> PostAsync<T>(string uri, IAuthyHttpClientRequest model) where T : AuthyResponse
         {
-            return await SendAsync<T>(baseUrl + uri, HttpMethod.Post);
+            return await SendAsync<T>(baseUrl + uri, HttpMethod.Post, model);
         }
 
-        private async Task<T> SendAsync<T>(string url, HttpMethod method, object model = null) where T : AuthyResponse
+        private async Task<T> SendAsync<T>(string url, HttpMethod method, IAuthyHttpClientRequest model = null) where T : AuthyResponse
         {
             using (var httpClient = new HttpClient())
             {
@@ -64,7 +65,7 @@ namespace AuthyDotNet
 
                 if (model != null)
                 {
-                    request.Content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8);
+                    request.Content = model.ToFormContent();
                 }
 
                 var httpResponse = await httpClient.SendAsync(request);
