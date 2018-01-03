@@ -2,7 +2,7 @@
 
 namespace AuthyDotNet.AuthyHttpClientRequests
 {
-    interface IAuthyHttpClientRequest
+    public interface IAuthyHttpClientRequest
     {
         HttpContent ToFormContent();
     }

@@ -14,9 +14,11 @@ namespace AuthyDotNet.UnitTests.ApiTests
         {
             string responseText = @"
                     {
+                        ""message"":""User created successfully."",
                         ""user"": {
                             ""id"":2
-                        }
+                        },
+                        ""success"":true
                     }
                 ";
 
@@ -24,8 +26,12 @@ namespace AuthyDotNet.UnitTests.ApiTests
             httpClient.PostAsync<RegisterUserResponse>("", null)
                 .ReturnsForAnyArgs(JsonConvert.DeserializeObject<RegisterUserResponse>(responseText));
             var api = new Api(httpClient);
-            var result = await api.RegisterUser("user@domain.com", "317-338-9302", 54);
+            var result = await api.RegisterUser("user@domain.com", "3173389302", 54);
             Assert.AreEqual(2, result.UserId);
+            Assert.IsTrue(result.Success);
+            Assert.AreEqual("User created successfully.", result.Message);
+            Assert.AreEqual(AuthyStatus.Success, result.Status);
         }
+        
     }
 }

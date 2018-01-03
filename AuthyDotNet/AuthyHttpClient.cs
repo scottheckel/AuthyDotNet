@@ -2,7 +2,6 @@
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using AuthyDotNet.AuthyHttpClientRequests;
 using AuthyDotNet.AuthyHttpClientResponses;
@@ -71,7 +70,7 @@ namespace AuthyDotNet
                 var httpResponse = await httpClient.SendAsync(request);
                 var httpResponseBody = await httpResponse.Content.ReadAsStringAsync();
                 var authyResponse = JsonConvert.DeserializeObject<T>(httpResponseBody);
-                switch (httpResponse.StatusCode)
+                switch (httpResponse.StatusCode) // TODO: SH - Redo this for all status code not just those handled by Authy.NET
                 {
                     case HttpStatusCode.ServiceUnavailable:
                         authyResponse.Status = AuthyStatus.ServiceUnavailable;
@@ -89,7 +88,7 @@ namespace AuthyDotNet
 
         private string GetUserAgent()
         {
-            return $"AuthyDotNet/0.2.0";
+            return $"AuthyDotNet/0.2.1";
         }
     }
 }
