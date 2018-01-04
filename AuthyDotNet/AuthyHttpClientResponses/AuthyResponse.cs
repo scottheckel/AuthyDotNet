@@ -1,5 +1,8 @@
 ﻿namespace AuthyDotNet.AuthyHttpClientResponses
 {
+    /// <summary>
+    /// Base Authy Response
+    /// </summary>
     public class AuthyResponse
     {
         public string Message { get; set; }
