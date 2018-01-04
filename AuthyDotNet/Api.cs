@@ -62,7 +62,8 @@ namespace AuthyDotNet
             {
                 return new VerifyTokenResponse
                 {
-                    Message = "is invalid",
+                    Message = "Token is invalid.",
+                    Token = "is invalid",
                     Success = false,
                     Errors = new Dictionary<string, string> {
                         { "token", "is invalid" }

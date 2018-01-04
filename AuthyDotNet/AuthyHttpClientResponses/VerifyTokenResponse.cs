@@ -29,7 +29,7 @@ namespace AuthyDotNet.AuthyHttpClientResponses
             public string OperatingSystemType { get; set; }
             [JsonProperty("last_account_recovery_at")]
             public string LastAccountRecoveryAt { get; set; }
-            public int Id { get; set; }
+            public int? Id { get; set; }
             [JsonProperty("registration_date")]
             public int RegistrationDate { get; set; }
         }

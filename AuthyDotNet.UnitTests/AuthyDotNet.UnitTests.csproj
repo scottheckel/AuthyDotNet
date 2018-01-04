@@ -63,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiTests\RegisterUserTest.cs" />
+    <Compile Include="ApiTests\RequestSmsTest.cs" />
+    <Compile Include="ApiTests\VerifyTokenTest.cs" />
+    <Compile Include="ApiTests\UserStatusTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
